@@ -41,7 +41,7 @@ def scale_from_label(method="standard", target="species"):
     label_encoding.py dosyasındaki df'yi alır,
     target sütununu ayırır, kalan sayısal veriyi ölçekler.
     """
-    from labelencoding import df
+    from Preprocessing.labelencoding import df
 
 # hedef değişkene scale yapmamak için dropla ayırıyorum
     X = df.drop(columns=[target]).copy()
@@ -58,7 +58,7 @@ def scale_from_onehot(method="standard"):
     one_hot_encoding.py dosyasındaki X_encoded ve y'yi alır,
     sayısal veriyi ölçekler.
     """
-    from onehotencoding import X_encoded, y
+    from Preprocessing.onehotencoding import X_encoded, y
 
     X_scaled, scaler = scale_features(X_encoded, method=method)
     return X_scaled, y, scaler
@@ -74,4 +74,3 @@ if __name__ == "__main__":
     X_onehot_scaled, y_onehot, scaler_onehot = scale_from_onehot(
         method="standard")
     print("One-Hot →", X_onehot_scaled.shape)
-    import onehotencoding
