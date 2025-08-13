@@ -28,7 +28,7 @@ def scale_features(X, method="standard"):
     else:
         raise ValueError("method standard veya minmax olmalı")
 
-     # Ölçekleme işlemi
+     # scaling ölçekleme işlemi
     X_scaled = X.copy()
     X_scaled[numeric_cols] = scaler.fit_transform(X[numeric_cols])
 
@@ -43,6 +43,7 @@ def scale_from_label(method="standard", target="species"):
     """
     from labelencoding import df
 
+# hedef değişkene scale yapmamak için dropla ayırıyorum
     X = df.drop(columns=[target]).copy()
     y = df[target].copy()
 
@@ -51,6 +52,7 @@ def scale_from_label(method="standard", target="species"):
 
 
 # --- One-hot encoded veriden scale ---
+# hedef değişkene scale uygulanmayacak zaten ayrılmıştı encode ederken
 def scale_from_onehot(method="standard"):
     """
     one_hot_encoding.py dosyasındaki X_encoded ve y'yi alır,
