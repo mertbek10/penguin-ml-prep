@@ -1,6 +1,6 @@
 # one hot encoding için ayrı bir dosyada çalışıyorum farklı modeller için hem label hem one hot encoding kullanıcam o yüzden dosyayı tekrar okudum
 import pandas as pd
-# sadece hedef değişken için label encode yapılacak gene
+# sadece hedef değişken için label encode yapılacak again
 from sklearn.preprocessing import LabelEncoder
 
 df = pd.read_csv("palmerpenguins_extended.csv")

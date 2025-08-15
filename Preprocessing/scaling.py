@@ -18,7 +18,7 @@ def scale_features(X, method="standard"):
 
     """
 
-    numeric_cols = X.select_dtypes(include=['int64', 'float64']).columns
+    numeric_cols = X.select_dtypes(include=['int64', 'float64']).columns#sayısal sütunlar scale edilecek
     if method == "standard":
         scaler = StandardScaler()
 
