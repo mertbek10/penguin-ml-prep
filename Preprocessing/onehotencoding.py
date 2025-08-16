@@ -2,8 +2,12 @@
 import pandas as pd
 # sadece hedef değişken için label encode yapılacak again
 from sklearn.preprocessing import LabelEncoder
+from Preprocessing.outlier import remove_outliers_iqr
+
 
 df = pd.read_csv("palmerpenguins_extended.csv")
+df = remove_outliers_iqr(df, factor=1.5)
+
 
 categorical_cols = ["island", "sex",
                     "diet", "life_stage", "health_metrics", "year"]

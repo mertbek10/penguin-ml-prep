@@ -1,3 +1,4 @@
+
 import os
 import sys
 sys.path.append(os.path.abspath(os.path.join(
@@ -5,24 +6,17 @@ sys.path.append(os.path.abspath(os.path.join(
 
 from sklearn.model_selection import train_test_split
 from Preprocessing import scaling as sc  # scale_from_label, scale_from_onehot
-from Preprocessing.smote import apply_smote #TEST AMAÇLI MODELİMİZDE DENEYECEGİZ KULLANIMI OPSİYONEL
-
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 from xgboost import XGBClassifier
 import pandas as pd
 
 #xgboos modeli için verilerimiz train and test olarak ayırıyoruz
-def train_and_evaluate(X, y, model_name, use_smote=False):
+def train_and_evaluate(X, y, model_name):
     X_train, X_test, y_train, y_test =train_test_split(
         X, y, test_size=0.2, random_state=42, stratify=y
     )
 
-    #smote opsiyonel 
-    #öncelikle smote kullanmıyorum
-    # SMOTE sadece train setine uygulanır
-    #şuan kullanmamak için yorum satırına aldım 
-    # if use_smote:
-    #     X_train, y_train = apply_smote(X_train, y_train)
+ 
 
     #xcboost modelimiz
     model = XGBClassifier(
@@ -41,37 +35,37 @@ def train_and_evaluate(X, y, model_name, use_smote=False):
     y_pred = model.predict(X_test)
 
     # Sonuçlar
-    print(f"\n{model_name} Sonuçları {'(SMOTE Uygulandı)' if use_smote else ''}")
+    print(f"\n{model_name} Sonuçları")
     print("Accuracy:", accuracy_score(y_test, y_pred))
     print("Confusion Matrix:\n", confusion_matrix(y_test, y_pred))
     print("Classification Report:\n", classification_report(y_test, y_pred))
-
+    
+    return model
 
 if __name__ == "__main__":
     # Label Encoding - Normal
-    X_label_scaled, y_label, _ = sc.scale_from_label(method="standard")
+    X_label_scaled, y_label,_, feature_names_label = sc.scale_from_label(method="standard")
     
-    train_and_evaluate(X_label_scaled, y_label, "Label Encoding")
+    # Eğit ve kaydet
+    model_label = train_and_evaluate(X_label_scaled, y_label, "Label Encoding")
 
-    # Label Encoding - SMOTE
-    use_smote = False  # Define use_smote before using it
-    if use_smote == True:
+    # Modeli sadece one hot encode için kaydet
+    import os
+    os.makedirs("saved_models", exist_ok=True)
+
+    # One-Hot Encoding 
+    X_onehot_scaled, y_onehot, _, feature_names_onehot = sc.scale_from_onehot(method="standard")
     
-       train_and_evaluate(X_label_scaled, y_label, "Label Encoding", use_smote=True)#somete kullanmamak için false aldım 
+    model_onehot = train_and_evaluate(X_onehot_scaled, y_onehot, "One-Hot Encoding")
+    model_onehot.save_model("saved_models/xgb_onehot.json")
+    with open("saved_models/xgb_onehot_features.txt", "w") as f:
+        f.write(",".join(feature_names_onehot))
+    print(" One-Hot Encoding XGBoost modeli kaydedildi.")
 
-    # One-Hot Encoding - Normal
 
-    X_onehot_scaled, y_onehot, _ = sc.scale_from_onehot(method="standard")
 
     
-    train_and_evaluate(X_onehot_scaled, y_onehot, "One-Hot Encoding")
-
-
-    # One-Hot Encoding - SMOTE
-    if use_smote == True:
-
-     train_and_evaluate(X_onehot_scaled, y_onehot, "One-Hot Encoding", use_smote=True)#smote kullanmamak için false aldım
-
+        
 
 
     

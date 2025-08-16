@@ -1,6 +1,10 @@
 # preprocessing adımlarından scalling ile devam ediyoruz
 import pandas as pd
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
+from Preprocessing.onehotencoding import X_encoded, y
+from Preprocessing.labelencoding import df
+
+
 
 
 def scale_features(X, method="standard"):
@@ -32,7 +36,7 @@ def scale_features(X, method="standard"):
     X_scaled = X.copy()
     X_scaled[numeric_cols] = scaler.fit_transform(X[numeric_cols])
 
-    return X_scaled, scaler
+    return X_scaled, scaler, list(X_scaled.columns)
 
 
 # --- Label encoded veriden scale ---
@@ -41,14 +45,13 @@ def scale_from_label(method="standard", target="species"):
     label_encoding.py dosyasındaki df'yi alır,
     target sütununu ayırır, kalan sayısal veriyi ölçekler.
     """
-    from Preprocessing.labelencoding import df
 
 # hedef değişkene scale yapmamak için dropla ayırıyorum
     X = df.drop(columns=[target]).copy()
     y = df[target].copy()
 
-    X_scaled, scaler = scale_features(X, method=method)
-    return X_scaled, y, scaler
+    X_scaled, scaler, feature_names = scale_features(X, method=method)
+    return X_scaled, y, scaler, feature_names
 
 
 # --- One-hot encoded veriden scale ---
@@ -58,19 +61,18 @@ def scale_from_onehot(method="standard"):
     one_hot_encoding.py dosyasındaki X_encoded ve y'yi alır,
     sayısal veriyi ölçekler.
     """
-    from Preprocessing.onehotencoding import X_encoded, y
 
-    X_scaled, scaler = scale_features(X_encoded, method=method)
-    return X_scaled, y, scaler
+    X_scaled, scaler, feature_names = scale_features(X_encoded, method=method)
+    return X_scaled, y, scaler, feature_names
 
 
 # Test amaçlı direkt çalıştırma
 if __name__ == "__main__":
     # Label hattı
-    X_label_scaled, y_label, scaler_label = scale_from_label(method="standard")
-    print("Label →", X_label_scaled.shape)
+    X_label_scaled, y_label, scaler_label,feat_label = scale_from_label(method="standard")
+    print("Label →", X_label_scaled.shape, len(feat_label), "features")
 
     # One-hot hattı
-    X_onehot_scaled, y_onehot, scaler_onehot = scale_from_onehot(
+    X_onehot_scaled, y_onehot, scaler_onehot, feat_onehot = scale_from_onehot(
         method="standard")
-    print("One-Hot →", X_onehot_scaled.shape)
+    print("One-Hot →", X_onehot_scaled.shape, len(feat_onehot), "features")

@@ -3,9 +3,11 @@
 import pandas as pd
 # label encoding için gerekli kütüphane
 from sklearn.preprocessing import LabelEncoder
+from Preprocessing.outlier import remove_outliers_iqr
 
 # veriyi tekrar okuyoruz
 df = pd.read_csv("palmerpenguins_extended.csv")
+df = remove_outliers_iqr(df, factor=1.5)
 
 # kopya satır sayısını bul ve sil
 

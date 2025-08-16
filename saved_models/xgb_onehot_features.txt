@@ -1,0 +1,1 @@
+bill_length_mm,bill_depth_mm,flipper_length_mm,body_mass_g,island_Biscoe,island_Dream,island_Torgensen,sex_female,sex_male,diet_fish,diet_krill,diet_parental,diet_squid,life_stage_adult,life_stage_chick,life_stage_juvenile,health_metrics_healthy,health_metrics_overweight,health_metrics_underweight,year_2021,year_2022,year_2023,year_2024,year_2025
