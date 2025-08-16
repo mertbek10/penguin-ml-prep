@@ -1,3 +1,10 @@
+'''
+Tahminlerimizi input olarak terminalden gireceğiz
+
+modeli eğittik kaydettik şimdi test etme sırasında 
+
+'''
+
 import pandas as pd
 from xgboost import XGBClassifier
 
@@ -25,11 +32,11 @@ for feature in feature_names:
     input_values.append(val)
 
 
-# 4. DataFrame oluştur
+# DataFrame oluştur
 user_input = pd.DataFrame([input_values], columns=feature_names)
 mapping = {0: "Adelie", 1: "Chinstrap", 2: "Gentoo"}
 
-# 5. Tahmin yap
+# Tahmin yap
 prediction = model.predict(user_input)[0]
 print("Tahmin : ", mapping.get(prediction, "Bilinmeyen sınıf"))
 

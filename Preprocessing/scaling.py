@@ -12,17 +12,18 @@ def scale_features(X, method="standard"):
     hem label hem de one hot encode için
     var olan sayısal sutünların ölçeklenmesi
 
-    X dataframe den sadece sayısal sütunlar scale edilir
+     dataframe den sadece sayısal sütunlar scale edilir
 
-    method: standar std veya minmax 
+    Bu işlemin amacı verileri bir noktada ölçeklemek yani :
 
-    Dönüş:
-    scaled_X: DataFrame -> Ölçeklenmiş veriler
-    scaler: fit edilmiş scaler nesnesi
+    gaga uzunluğu 10 -20 mm arasındayken 
+    kanat uzunluğu 100- 300 mm arasında olabilir
+    
+    modelimizin büyük değerleri baskın olarak algılamamsı için bir noktada sayısal sütunlara scale(ölçekleme) işlemi yapıyoruz
 
     """
-
-    numeric_cols = X.select_dtypes(include=['int64', 'float64']).columns#sayısal sütunlar scale edilecek
+    #sayısal sütunlar scale edilecek
+    numeric_cols = X.select_dtypes(include=['int64', 'float64']).columns
     if method == "standard":
         scaler = StandardScaler()
 
@@ -39,7 +40,7 @@ def scale_features(X, method="standard"):
     return X_scaled, scaler, list(X_scaled.columns)
 
 
-# --- Label encoded veriden scale ---
+# Label encoded veriden scale 
 def scale_from_label(method="standard", target="species"):
     """
     label_encoding.py dosyasındaki df'yi alır,
@@ -54,12 +55,14 @@ def scale_from_label(method="standard", target="species"):
     return X_scaled, y, scaler, feature_names
 
 
-# --- One-hot encoded veriden scale ---
+# One-hot encoded veriden scale 
 # hedef değişkene scale uygulanmayacak zaten ayrılmıştı encode ederken
 def scale_from_onehot(method="standard"):
     """
     one_hot_encoding.py dosyasındaki X_encoded ve y'yi alır,
     sayısal veriyi ölçekler.
+
+    onehot dosyasında hedef değişkeni zaten ayırmıştık ve label encode etmiştik tekrar burda ayırmaya gerek yok
     """
 
     X_scaled, scaler, feature_names = scale_features(X_encoded, method=method)
@@ -76,3 +79,4 @@ if __name__ == "__main__":
     X_onehot_scaled, y_onehot, scaler_onehot, feat_onehot = scale_from_onehot(
         method="standard")
     print("One-Hot →", X_onehot_scaled.shape, len(feat_onehot), "features")
+

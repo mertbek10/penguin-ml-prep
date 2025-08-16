@@ -1,11 +1,35 @@
-# one hot encoding için ayrı bir dosyada çalışıyorum farklı modeller için hem label hem one hot encoding kullanıcam o yüzden dosyayı tekrar okudum
+# one hot encoding için ayrı bir dosyada çalışıyorum
+#  modeller sonuçlarını karşılaştırırken onehot ve label ile encode edilmiş verilerin çıktısını karşılaştırmak için
 import pandas as pd
-# sadece hedef değişken için label encode yapılacak again
+# sadece hedef değişken için label encode yapılacak 
 from sklearn.preprocessing import LabelEncoder
 from Preprocessing.outlier import remove_outliers_iqr
 
+'''
+çoğu işlem label dakiyle aynı
+
+- dosyayı tekrar oku
+- kategorik sütunların tipini stringe dönüştür
+
+
+farklı olark hedef değişkene label encode edilir 
+Bunun sebebi label encode mantığı şu şekildedir :
+
+adeli 0 gento 1 chinstrap 2
+biz hedef değişkeni bu şekilde sınıflandırmak isteriz (target --> label encode)
+
+one hot encode da ise :
+       adeli 1 gentoo 0 chistrap 0
+       adeli 0 gentoo 1  chistrap 0
+       adeli 0 gentoo 0  chistrap 1
+       
+gibi matrix olarak dönüşüm yapar 
+one hot encode işleminde sütun sayısı artar
+verilerin encode edilmiş hallerinin model sonuçlarına etkisini inceleyip iyi sonuç veren encode yöntemiyle test sonuçlarına geçilecek
+'''
 
 df = pd.read_csv("palmerpenguins_extended.csv")
+#uç değer temizliği yapılmış verilere erişiyoruz 
 df = remove_outliers_iqr(df, factor=1.5)
 
 
@@ -16,8 +40,6 @@ categorical_cols = ["island", "sex",
 le_target = LabelEncoder()
 y = le_target.fit_transform(df["species"].astype("string"))
 
-# eksik verileri label da kontrol ettiğim için tekrar bakmıyorum zaten eksik veri yok
-# veya duplicates etmeme gerek yok
 
 for col in categorical_cols:
     if col in df.columns:
@@ -25,6 +47,7 @@ for col in categorical_cols:
 
 
 # hedef değişkeni çıkardık
+# scale işlemine hedef değişken sokulmayacak
 X = df.drop(columns=["species"]).copy()
 
 X_encoded = pd.get_dummies(X, columns=categorical_cols, drop_first=False)

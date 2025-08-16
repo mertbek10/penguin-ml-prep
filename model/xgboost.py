@@ -46,10 +46,9 @@ if __name__ == "__main__":
     # Label Encoding - Normal
     X_label_scaled, y_label,_, feature_names_label = sc.scale_from_label(method="standard")
     
-    # Eğit ve kaydet
     model_label = train_and_evaluate(X_label_scaled, y_label, "Label Encoding")
 
-    # Modeli sadece one hot encode için kaydet
+    # Modeli sadece one hot encode için kaydet çünkü onun verileri daha iyi sonuç verdi tahminizi bu kaydedilen dosyadan okuyup yapacağız
     import os
     os.makedirs("saved_models", exist_ok=True)
 

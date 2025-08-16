@@ -35,13 +35,13 @@ def train_and_evaluate(X, y, model_name):
 
 
 if __name__ == "__main__":
-    # Label Encoding - Normal
-    X_label_scaled, y_label, _ = sc.scale_from_label(method="standard")
+    # Label Encoding 
+    X_label_scaled, y_label, _, feature_names_label = sc.scale_from_label(method="standard")
     
     train_and_evaluate(X_label_scaled, y_label, "Label Encoding")
-    # One-Hot Encoding - Normal
+    # One-Hot Encoding 
 
-    X_onehot_scaled, y_onehot, _ = sc.scale_from_onehot(method="standard")
+    X_onehot_scaled, y_onehot, _, feature_names_onehot = sc.scale_from_onehot(method="standard")
 
     
     train_and_evaluate(X_onehot_scaled, y_onehot, "One-Hot Encoding")

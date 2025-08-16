@@ -1,23 +1,9 @@
-#model değerlendirmeleri sonucu doğruluk oranını artırmak amacıyla outlier temizliği yapmaya karar verdik 
-# Preprocessing/outlier.py
+
+# model değerlendirmeleri sonucu doğruluk oranını artırmak amacıyla outlier temizliği yapmaya karar verdik 
+# EDA adımlarında outlierlerin varlığını ıqr ile zaten test etmiştik şimdi model sonuçları sonrası daha temiz veri almak için outlier işlemi yapılcak
 import pandas as pd
 
 def remove_outliers_iqr(df, columns=None, factor=1.5):
-    """
-    Belirtilen kolonlardaki aykırı değerleri (outlier) IQR yöntemiyle temizler.
-    Temizlenmiş DataFrame'i döner.
-
-    Parametreler:
-    df : pd.DataFrame
-        Giriş verisi
-    columns : list (opsiyonel)
-        Outlier temizlenecek kolonlar listesi. None ise tüm numeric kolonlar seçilir.
-    factor : float
-        IQR çarpanı (1.5 = standart, 3.0 = daha geniş eşik)
-
-    Dönüş:
-    pd.DataFrame : Outlier'lar temizlenmiş DataFrame
-    """
 
     df_clean = df.copy()
 
