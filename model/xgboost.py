@@ -60,12 +60,3 @@ if __name__ == "__main__":
     with open("saved_models/xgb_onehot_features.txt", "w") as f:
         f.write(",".join(feature_names_onehot))
     print(" One-Hot Encoding XGBoost modeli kaydedildi.")
-
-
-
-    
-        
-
-
-    
-        

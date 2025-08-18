@@ -50,7 +50,13 @@ for col in categorical_cols:
 # scale işlemine hedef değişken sokulmayacak
 X = df.drop(columns=["species"]).copy()
 
+#encode işlemi 
 X_encoded = pd.get_dummies(X, columns=categorical_cols, drop_first=False)
+
+# Ada sütunlarının ağırlığını azalt (ör. 0.8 ile çarp)
+#model öğrenirken ada sütununu baskın almasın diye ağırlıığını azaltıyoruz 
+island_cols = [col for col in X_encoded.columns if col.startswith("island_")]
+X_encoded[island_cols] = X_encoded[island_cols] * 0.9
 
 if __name__ == "__main__":
     print("One-Hot Encoding tamamlandı!")
@@ -62,3 +68,4 @@ target_mapping = dict(
     zip(le_target.classes_, le_target.transform(le_target.classes_)))
 if __name__ == "__main__":
     print("Hedef değişken mapping:", target_mapping)
+

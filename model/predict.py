@@ -40,3 +40,4 @@ mapping = {0: "Adelie", 1: "Chinstrap", 2: "Gentoo"}
 prediction = model.predict(user_input)[0]
 print("Tahmin : ", mapping.get(prediction, "Bilinmeyen sınıf"))
 
+

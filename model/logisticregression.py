@@ -1,5 +1,7 @@
 # verilerimizi modele hazırladık logisticregression ile makine öğrenimine başlayıp sonuçları değerlendiricez
 
+#   ********xgboost modelinde daha iyi sonuçlar aldığımız için testimiz o modelle kaydedip yapmaya devam edicez ************
+
 import os
 import sys
 sys.path.append(os.path.abspath(os.path.join(
