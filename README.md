@@ -22,8 +22,8 @@ Compared results between Label Encoding and One-Hot Encoding
 Feature importance analysis showed that both biological measures and categorical data contribute to classification.
 Final model: XGBoost + One-Hot Encoding, saved for prediction.
 
-''
+```
 Model is saved in saved_models/xgb_onehot.json.
 Predictions are made via terminal input:
 python -m model.predict
-''
+```
