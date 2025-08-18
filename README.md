@@ -1,14 +1,14 @@
-🐧 Penguin Species Classification
+###🐧 Penguin Species Classification
 
 This project focuses on predicting penguin species using machine learning techniques.
 The dataset is based on the Palmer Penguins Dataset, extended with additional features for testing.
 
-Exploratory Data Analysis (EDA)
+###Exploratory Data Analysis (EDA)
 Checked missing values and outliers.
 Visualized distributions of numerical features (bill length, bill depth, flipper length, body mass).
 Investigated correlations and species distributions.
 
-Preprocessing
+###Preprocessing
 Removed outliers using the IQR method.
 Encoded categorical features with both:
 Label Encoding (baseline)
