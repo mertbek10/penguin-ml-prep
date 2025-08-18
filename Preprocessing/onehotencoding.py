@@ -55,8 +55,8 @@ X_encoded = pd.get_dummies(X, columns=categorical_cols, drop_first=False)
 
 # Ada sütunlarının ağırlığını azalt (ör. 0.8 ile çarp)
 #model öğrenirken ada sütununu baskın almasın diye ağırlıığını azaltıyoruz 
-island_cols = [col for col in X_encoded.columns if col.startswith("island_")]
-X_encoded[island_cols] = X_encoded[island_cols] * 0.9
+# island_cols = [col for col in X_encoded.columns if col.startswith("island_")]
+# X_encoded[island_cols] = X_encoded[island_cols] * 1
 
 if __name__ == "__main__":
     print("One-Hot Encoding tamamlandı!")
